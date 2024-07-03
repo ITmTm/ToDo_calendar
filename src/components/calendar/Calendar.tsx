@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import Modal from '../modal/Modal'
 import { isDatOff } from '../../api/isDayOffAPI';
+import Day from './Day';
 
 import './calendar.scss';
 
@@ -11,10 +12,12 @@ const Calendar: React.FC = () => {
   const [holidays, setHolidays] = useState<number[]>([]);
   const currentProfile = useSelector((state: RootState) => state.profiles.currentProfile);
 
+      // Определение количества дней в месяце
   const daysInMonth = new Date(2024, 7, 0).getDate();
   const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
 
   useEffect(() => {
+      // Функция для проверки праздничных дней
     const checkHolidays = async () => {
       const holidayDays: number[] = [];
       for (const day of days) {
@@ -25,19 +28,22 @@ const Calendar: React.FC = () => {
       }
       setHolidays(holidayDays);
     };
+
     checkHolidays()
       .then(() => {
-        console.log()
+        console.log();
       })
       .catch((error) => {
         console.error('Error in checking holidays:', error);
       })
   }, [days]);
 
+      // Обработчик клика по дню
   const handleDayClick = (day: number) => {
     setSelectedDate(new Date(2024, 6, day));
   };
 
+      // Обработчик закрытия модального окна
   const closeModal = () => {
     setSelectedDate(null)
   };
@@ -45,15 +51,16 @@ const Calendar: React.FC = () => {
   return (
     <div className='calendar'>
       <h2>{currentProfile}&apos;s Tasks</h2>
-      {days.map((day) => (
-        <div
-          key={day}
-          className={`day ${holidays.includes(day) ? 'holiday' : ''}`}
-          onClick={() => handleDayClick(day)}
-        >
-          {day}
-        </div>
-      ))}
+      <div className='calendar-grid'>
+        {days.map((day) => (
+          <Day
+            key={day}
+            day={day}
+            isHoliday={holidays.includes(day)}
+            onClick={handleDayClick}
+          />
+        ))}
+      </div>
       {selectedDate && (
         <Modal
           date={selectedDate}
