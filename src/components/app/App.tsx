@@ -1,15 +1,22 @@
 import React from 'react';
-import Calendar from '../calendar/Calendar';
+import ParentComponent from '../parentComponent/ParentComponent';
+import { TaskProvider } from '../../context/TaskProvider';
 
 import './app.scss';
 
 const App: React.FC = () => {
   return (
-        <div className='app'>
-          <h1>To-Do List Calendar</h1>
-          <Calendar />
+    <TaskProvider>
+      <div className='app'>
+        <header className='header'>
+          <h1>To-Do Task Calendar</h1>
+        </header>
+        <div className='content'>
+          <ParentComponent />
         </div>
-  )
-}
+      </div>
+    </TaskProvider>
+  );
+};
 
 export default App;
