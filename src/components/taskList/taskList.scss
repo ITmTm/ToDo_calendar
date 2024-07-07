@@ -1,0 +1,79 @@
+.task-list {
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+
+  .MuiListItem-root {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+
+    &.completed {
+      text-decoration: line-through;
+      color: #9e9e9e;
+    }
+
+    .MuiCheckbox-root {
+      padding: 0;
+      margin-right: 16px;
+    }
+
+    .MuiListItemText-root {
+      flex-grow: 1;
+    }
+
+    .MuiIconButton-root {
+      color: #f44336;
+    }
+  }
+
+  ul {
+    margin-top: 0;
+    li {
+      border-radius: 4px;
+      background-color: #f9f9f9;
+      justify-content: space-between;
+      align-items: center;
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: row;
+      column-gap: 50px;
+
+      &.completed {
+        text-decoration: line-through;
+        color: #9e9e9e;
+      }
+
+      span {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .add-task {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+
+    .MuiTextField-root {
+      flex-grow: 1;
+      margin-right: 10px;
+    }
+
+    .MuiButton-root {
+      white-space: nowrap;
+    }
+  }
+
+  .delete {
+    color: red;
+    &:hover {
+      background-color: rgba(149, 4, 4, .58);
+      color: aqua;
+    }
+  }
+}
