@@ -1,5 +1,9 @@
 # To-Do Calendar
 
+![Screenshot_2](https://github.com/ITmTm/ToDo_calendar/assets/98873757/f74e86fe-d031-4b8f-abd9-1c8a3a297096)
+
+
+
 ## Условия
 * <b>Приятный внешний вид</b>
 * <b>Адаптивный дизайн</b>
