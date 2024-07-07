@@ -1,0 +1,38 @@
+.profile-selector {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .MuiFormControl-root {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .MuiInputLabel-root {
+    color: #333;
+  }
+
+  .MuiSelect-root {
+    background-color: #fff;
+  }
+
+  .MuiOutlinedInput-root {
+    &.Mui-focused .MuiOutlinedInput-notchedOutline {
+      border-color: #3f51b5;
+    }
+
+    .MuiOutlinedInput-notchedOutline {
+      border-color: #ccc;
+    }
+  }
+
+  .MuiMenuItem-root {
+    &.Mui-selected {
+      background-color: rgba(63, 81, 181, 0.1);
+    }
+    &:hover {
+      background-color: rgba(63, 81, 181, 0.2);
+    }
+  }
+}

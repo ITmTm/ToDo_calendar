@@ -19,3 +19,20 @@ code {
 ul {
   padding: 0;
 }
+
+.button {
+  background-color: #3f51b5;
+  color: white;
+  &:hover {
+    background-color: #303f9f;
+  }
+}
+
+.input {
+  margin-bottom: 10px;
+  width: 100%;
+
+  .MuiInputBase-root {
+    background-color: white;
+  }
+}
