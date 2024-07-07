@@ -1,70 +1,62 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
-import Modal from '../modal/Modal'
-import { isDayOff } from '../../api/isDayOffAPI';
-import Day from './Day';
+import React, { useState, useEffect, useMemo } from 'react';
+import TaskList from '../taskList/TaskList'
+import { format, addDays, startOfMonth, endOfMonth, startOfWeek, endOfWeek, isSameMonth, isToday} from 'date-fns';
+import { isDayOff } from '../../services/api'
 
 import './calendar.scss';
 
 const Calendar: React.FC = () => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [holidays, setHolidays] = useState<number[]>([]);
-  const currentProfile = useSelector((state: RootState) => state.profiles.currentProfile);
+  const [holidays, setHolidays] = useState<Record<string, boolean>>({});
 
-      // Определение количества дней в месяце
-  const daysInMonth = new Date(2024, 7, 0).getDate();
-  const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+  // Получение первого и последнего для месяца
+  const startOfCurrentMonth = startOfMonth(new Date())
+  const endOfCurrentMonth = endOfMonth(new Date());
+
+  // Вычисление начальной и конечной даты для отображения в календаре
+  const start = startOfWeek(startOfCurrentMonth);
+  const end = endOfWeek(endOfCurrentMonth);
+
+  const days = useMemo(() => {
+    const result = [];
+    let day = start;
+    while (day <= end) {
+      result.push(day);
+      day = addDays(day, 1);
+    }
+    return result;
+  }, [start, end]);
 
   useEffect(() => {
-      // Функция для проверки праздничных дней
-    const checkHolidays = async () => {
-      const holidayDays: number[] = [];
-      for (const day of days) {
-        const date = `2024-07-${day < 10 ? '0' : ''}${day}`;
-        if (await isDayOff(date)) {
-          holidayDays.push(day);
-        }
+    const fetchHolidays = async () => {
+      const newHolidays: Record<string, boolean> = {};
+      for (const date of days) {
+        const formattedDate = format(date, 'yyyyMMdd');
+        newHolidays[formattedDate] = await isDayOff(date);
       }
-      setHolidays(holidayDays);
+      setHolidays(newHolidays)
     };
-
-    checkHolidays()
-      .then(() => {
-        console.log();
-      })
-      .catch((error) => {
-        console.error('Error in checking holidays:', error);
-      })
+    fetchHolidays().catch(console.error);
   }, [days]);
-
-      // Обработчик клика по дню
-  const handleDayClick = (day: number) => {
-    setSelectedDate(new Date(2024, 6, day));
-  };
-
-      // Обработчик закрытия модального окна
-  const closeModal = () => {
-    setSelectedDate(null)
-  };
 
   return (
     <div className='calendar'>
-      <h2>{currentProfile}&apos;s Tasks</h2>
-        {days.map((day) => (
-          <Day
-            key={day}
-            day={day}
-            isHoliday={holidays.includes(day)}
-            onClick={handleDayClick}
-          />
-        ))}
-      {selectedDate && (
-        <Modal
-          date={selectedDate}
-          onClose={closeModal}
-        />
-      )}
+      {days.map(date => {
+        const formattedDate = format(date, 'yyyyMMdd');
+        const isHoliday = holidays[formattedDate];
+        const isCurrentMonth = isSameMonth(date, startOfCurrentMonth);
+        const today = isToday(date);
+
+        return (
+          <div
+            key={formattedDate}
+            className={`calendar__day ${isHoliday ? 'calendar__day--holiday' : ''} ${isCurrentMonth ? '' : 'calendar__day--other-month'} ${today ? 'calendar__day--today' : ''}`}
+          >
+            <h3>{format(date, 'EEEE')}</h3>
+            <p>{format(date, 'dd MMM yyyy')}</p>
+            {isCurrentMonth && <TaskList date={date} />}
+          </div>
+        );
+      })}
     </div>
   );
 };
