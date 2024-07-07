@@ -6,23 +6,6 @@
   justify-content: center;
 }
 
-.day {
-  width: 80px;
-  height: 80px;
-  cursor: pointer;
-  padding: 10px;
-  border: 1px solid #ccc;
-  text-align: center;
-  font-size: 1.5rem;
-  &:hover {
-    background-color: #f0f0f0;
-  }
-}
-
-.holiday {
-  background-color: #ffcccc;
-}
-
 @media (max-width: 600px) {
   .calendar {
     grid-template-columns: repeat(2, 1fr);

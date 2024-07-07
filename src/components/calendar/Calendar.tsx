@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import Modal from '../modal/Modal'
-import { isDatOff } from '../../api/isDayOffAPI';
+import { isDayOff } from '../../api/isDayOffAPI';
 import Day from './Day';
 
 import './calendar.scss';
@@ -22,7 +22,7 @@ const Calendar: React.FC = () => {
       const holidayDays: number[] = [];
       for (const day of days) {
         const date = `2024-07-${day < 10 ? '0' : ''}${day}`;
-        if (await isDatOff(date)) {
+        if (await isDayOff(date)) {
           holidayDays.push(day);
         }
       }
@@ -51,7 +51,6 @@ const Calendar: React.FC = () => {
   return (
     <div className='calendar'>
       <h2>{currentProfile}&apos;s Tasks</h2>
-      <div className='calendar-grid'>
         {days.map((day) => (
           <Day
             key={day}
@@ -60,7 +59,6 @@ const Calendar: React.FC = () => {
             onClick={handleDayClick}
           />
         ))}
-      </div>
       {selectedDate && (
         <Modal
           date={selectedDate}
@@ -68,7 +66,7 @@ const Calendar: React.FC = () => {
         />
       )}
     </div>
-  )
-}
+  );
+};
 
 export default Calendar;
