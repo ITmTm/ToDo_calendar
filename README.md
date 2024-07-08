@@ -21,7 +21,7 @@
 
 ## Дополнительные Фичи
 * <b>date-fns</b> (Modern JavaScript date utility library)
-* * <b>Material UI</b>
+* <b>Material UI</b>
 <hr style="height: 1px;">
 
 
