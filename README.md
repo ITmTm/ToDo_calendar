@@ -21,6 +21,7 @@
 
 ## Дополнительные Фичи
 * <b>date-fns</b> (Modern JavaScript date utility library)
+* * <b>Material UI</b>
 <hr style="height: 1px;">
 
 
@@ -34,8 +35,9 @@
 <hr>
 
 ## Using Libraries
-[![SASS](https://img.shields.io/badge/SASS(SCSS)-%235F9EA0?style=for-the-badge&logo=SASS&logoSize=%20)](https://sass-lang.com/) &nbsp;
+[![SASS](https://img.shields.io/badge/-blue?style=social&logo=sass&label=SASS%20(SCSS))](https://sass-lang.com/) &nbsp;
 [![Date fns](https://img.shields.io/badge/-Melanzane?style=social&logo=date-fns&label=date-fns)](https://date-fns.org/) &nbsp;
+[![Material UI](https://img.shields.io/badge/-blue?style=social&logo=mui&label=mui)](https://mui.com/material-ui/) &nbsp;
 [![Axios](https://img.shields.io/badge/-blue?style=social&logo=axios&label=axios)](https://axios-http.com/ru/) &nbsp;
 
 <hr>
